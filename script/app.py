@@ -87,7 +87,7 @@ def resize_gif(path, save_as=None, resize_to=(200,200)):
         save_as = path
     imageio.mimsave(save_as, frames)
 
-folder_path = r'E:\College\2nd year\hackathon\Mozohack\backend\data\gif'
+folder_path = r'C:\Users\dwija\OneDrive - SRM Institute of Science & Technology\gif'
 
 filenames = get_filenames_in_folder(folder_path)
 
