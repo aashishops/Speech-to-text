@@ -1,6 +1,6 @@
 import nltk
 import streamlit as st
-
+import os
 # Download necessary NLTK data
 nltk.download('averaged_perceptron_tagger')
 nltk.download('wordnet')
@@ -13,6 +13,13 @@ from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 from difflib import SequenceMatcher
 from collections import defaultdict
+
+def get_filenames_in_folder(folder_path):
+    filenames = []
+    for filename in os.listdir(folder_path):
+        if os.path.isfile(os.path.join(folder_path, filename)):
+            filenames.append(filename)
+    return filenames
 
 def preprocess_text(text):
     lemmatizer = WordNetLemmatizer()
@@ -62,12 +69,18 @@ def find_similar_words(input_text, available_words, max_similar_words=5):
     
     return sorted_similar_words
 
-# Define available words
-available_words = ['apple', 'banana', 'cherry', 'date', 'elderberry', 'fig', 'grape', 'honeydew', 'kiwi', 'lemon']
+folder_path = r'E:\College\2nd year\hackathon\Mozohack\backend\data\raw_videos'
+filenames = get_filenames_in_folder(folder_path)
 
-# Define input text
+words = []
+for filename in filenames:  
+    word = filename[:-4]
+    words.append(word)
+    
+
+
 input_text = st.text_input('Enter a sentence:')
 
 # Display similar words
 if input_text:
-    st.write('Similar words:', find_similar_words(input_text, available_words))
+    st.write('Similar words:', find_similar_words(input_text, words))
